@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+}
+
+.AppLayout .main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main .Content {
+  flex-grow: 1;
+}
+
+.BackColor{
+  background-color: darkolivegreen
+}
