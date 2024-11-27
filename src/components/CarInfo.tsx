@@ -16,7 +16,7 @@ export default function CarInfo() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(apiUrl + "products/" + id)
+        fetch(apiUrl + "cars/" + id)
             .then(res => res.json())
             .then(data => setItem(data));
     }, []);

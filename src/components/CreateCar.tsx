@@ -30,7 +30,7 @@ const CreateCar = () => {
     const [categories, setCategories] = useState<CategoryOption[]>([]);
 
     useEffect(() => {
-        fetch(apiUrl + 'products/categories').then(res => res.json()).then(data => {
+        fetch(apiUrl + 'cars/categories').then(res => res.json()).then(data => {
             const items = data as CategoryModel[];
             setCategories(items.map(x => { return { label: x.name, value: x.id } }));
         });
@@ -45,7 +45,7 @@ const CreateCar = () => {
             form.append(key, (item as any)[key]);
         }
 
-        api.post("products", form).then(res => {
+        api.post("cars", form).then(res => {
             if (res.status === 200) {
                 message.success("Car created successfuly!");
                 navigate(-1);

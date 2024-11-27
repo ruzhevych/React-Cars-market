@@ -72,7 +72,7 @@ const CarTable = () => {
 
     // load data from server
     useEffect(() => {
-        fetch(apiPath + "products/all")
+        fetch(apiPath + "cars/all")
             .then(res => res.json())
             .then((data) => {
                 const items = data as CarModel[];
@@ -82,7 +82,7 @@ const CarTable = () => {
 
     const deleteItem = (id: number) => {
 
-        api.delete("products/" + id).then(res => {
+        api.delete("cars/" + id).then(res => {
             if (res.status === 200) {
                 setCars(cars.filter(x => x.id !== id));
                 message.success('Car deleted successfuly!');

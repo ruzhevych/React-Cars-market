@@ -30,12 +30,12 @@ const EditCar = () => {
     const { id } = useParams<QueryParams>();
 
     useEffect(() => {
-        fetch(apiUrl + 'products/categories').then(res => res.json()).then(data => {
+        fetch(apiUrl + 'cars/categories').then(res => res.json()).then(data => {
             const items = data as CategoryModel[];
             setCategories(items.map(x => { return { label: x.name, value: x.id } }));
         });
 
-        fetch(apiUrl + "products/" + id).then(res => res.json()).then(data => {
+        fetch(apiUrl + "cars/" + id).then(res => res.json()).then(data => {
             // setProduct(data);
             form.setFieldsValue(data);
             console.log(data);
@@ -46,7 +46,7 @@ const EditCar = () => {
         console.log(item);
 
         // upload to server
-        fetch(apiUrl + "products", {
+        fetch(apiUrl + "cars", {
             method: "PUT",
             body: JSON.stringify(item),
             headers: {
