@@ -14,7 +14,6 @@ function App() {
   return (
     <ConfigProvider
     theme={{
-      algorithm: theme.darkAlgorithm,
       token: {
         // Seed Token
         colorPrimary: '#19af71',
