@@ -6,6 +6,7 @@ export interface CarModel {
     imageUrl: string;
     categoryName?: string;
     description?: string;
+    liked: boolean;
 }
 
 export type CarFormFields = {

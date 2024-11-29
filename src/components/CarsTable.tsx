@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Table, TableProps, Tag } from 'antd';
-import { AppstoreAddOutlined, DeleteFilled, EditFilled, InfoCircleFilled, LikeOutlined } from '@ant-design/icons';
+import { AppstoreAddOutlined, DeleteFilled, EditFilled, InfoCircleFilled, LikeFilled, LikeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { CarModel } from '../models/cars';
+import { likesService } from '../services/likes.service';
 import api from '../services/api';
 
 const apiPath = import.meta.env.VITE_CARS_API_URL;
@@ -10,6 +11,16 @@ const apiPath = import.meta.env.VITE_CARS_API_URL;
 const CarTable = () => {
 
     const [cars, setCars] = useState<CarModel[]>([]);
+
+    const onLikeToggle = (id: number) => {
+        likesService.toggle(id);
+        setCars((prev) =>
+            prev.map(x =>
+                x.id === id
+                    ? { ...x, liked: likesService.isLiked(id) }
+                    : x
+            ));
+    }
 
     const columns: TableProps<CarModel>['columns'] = [
         {
@@ -48,9 +59,9 @@ const CarTable = () => {
                     <Link to={`/cars/${record.id}`}>
                         <Button color="default" variant="outlined" icon={<InfoCircleFilled />} />
                     </Link>
-                    <Link to={`/favorites`}>
-                        <Button style={{ color: '#61916e' }} variant="outlined" icon={<LikeOutlined />} />
-                    </Link>
+                    <Button onClick={() => onLikeToggle(record.id)} style={{ color: '#61916e' }} variant="outlined"
+                        icon={record.liked ? <LikeFilled /> : <LikeOutlined />}
+                    />
                     <Link to={`/edit/${record.id}`}>
                         <Button style={{ color: '#faad14' }} variant="outlined" icon={<EditFilled />} />
                     </Link>
@@ -74,6 +85,11 @@ const CarTable = () => {
             .then(res => res.json())
             .then((data) => {
                 const items = data as CarModel[];
+
+                for (const i of items) {
+                    i.liked = likesService.isLiked(i.id);
+                }
+                
                 setCars(items.sort((x, y) => y.id - x.id));
             });
     }, []);
