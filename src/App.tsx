@@ -20,7 +20,7 @@ function App() {
         borderRadius: 10,
 
         // Alias Token
-        colorBgContainer: '#f6ffed',
+        colorBgContainer: '#fff',
       },
     }}
   >
