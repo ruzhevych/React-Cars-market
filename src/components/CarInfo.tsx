@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { CarModel } from '../models/cars';
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_CARS_API_URL;
 
 type Params = {
     id: string;
@@ -27,7 +27,7 @@ export default function CarInfo() {
             {
                 item ?
                     <div>
-                        <h2>{item.brand}</h2>
+                        <h2>{item.name}</h2>
                         <p>{item.categoryName}</p>
                         <hr />
                         <Image
@@ -35,7 +35,7 @@ export default function CarInfo() {
                             src={item.imageUrl}
                         />
                         <p>Price: {item.price}$</p>
-                        <p>Year of issue: {item.year}%</p>
+                        <p>Quantity: {item.quantity}%</p>
                         <p>Description: {item.description}</p>
                     </div>
                     :

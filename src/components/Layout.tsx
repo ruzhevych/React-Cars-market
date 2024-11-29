@@ -14,13 +14,20 @@ import { Button, Layout, Menu, theme } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAccountContext } from '../contexts/accounts.context';
 import { accountService } from '../services/accounts.service';
+import { clear, selectAccount, selectIsAuth } from '../redux/account/accountSlice';
+import { useAppSelector } from '../redux/hooks';
+import { useDispatch } from 'react-redux';
 
 const { Header, Sider, Content } = Layout;
 
 const AppLayout: React.FC = () => {
 
     const { pathname } = useLocation();
-    const { account, clear, isAuth } = useAccountContext();
+
+    //const { account, clear, isAuth } = useAccountContext();
+    const account = useAppSelector(selectAccount);
+    const isAuth = useAppSelector(selectIsAuth);
+    const dispatch = useDispatch();
 
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -29,14 +36,14 @@ const AppLayout: React.FC = () => {
 
     const logout = () => {
         accountService.logout();
-        clear();
+        dispatch(clear());
     }
 
     return (
         <Layout className='AppLayout'>
-            <Sider  trigger={null} collapsible collapsed={collapsed}>
-                <div className="demo-logo-vertical" />
-                <Menu
+            <Sider  trigger={null} collapsible collapsed={collapsed} className='BackColor'>
+                <div className="demo-logo-vertical " />
+                <Menu className='BackColor'
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={[pathname]}
@@ -78,7 +85,7 @@ const AppLayout: React.FC = () => {
                     />
                     <div>
                         {
-                            isAuth() ?
+                            isAuth ?
                                 <>
                                     <span style={{ padding: "10px" }}>Hello, {account?.email}</span>
                                     <Button

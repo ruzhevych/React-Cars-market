@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Button, message, Popconfirm, Space, Table, TableProps } from 'antd';
+import { Button, message, Popconfirm, Space, Table, TableProps, Tag } from 'antd';
 import { AppstoreAddOutlined, DeleteFilled, EditFilled, InfoCircleFilled, LikeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { CarModel } from '../models/cars';
 import api from '../services/api';
 
-const apiPath = import.meta.env.VITE_API_URL;
+const apiPath = import.meta.env.VITE_CARS_API_URL;
 
 const CarTable = () => {
 
@@ -16,19 +16,13 @@ const CarTable = () => {
             title: 'Image',
             dataIndex: 'imageUrl',
             key: 'image',
-            render: (_, item) => <img height={50} src={item.imageUrl} alt={item.brand}></img>,
+            render: (_, item) => <img height={50} src={item.imageUrl} alt={item.name}></img>,
         },
         {
-            title: 'Brand',
-            dataIndex: 'brand',
-            key: 'brand',
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
             render: (text, item) => <Link to={`/cars/${item.id}`}>{text}</Link>,
-        },
-        {
-            title: 'Model',
-            dataIndex: 'model',
-            key: 'model',
-            render: (text) => <span>{text}</span>,
         },
         {
             title: 'Price',
@@ -37,10 +31,14 @@ const CarTable = () => {
             render: (text) => <span>{text}$</span>,
         },
         {
-            title: 'Year',
-            dataIndex: 'year',
-            key: 'year',
-            render: (text) => <span>{text}</span>,
+            title: 'Stock',
+            dataIndex: 'quantity',
+            key: 'stock',
+            render: (text) =>
+                text > 0 ?
+                    <Tag color="green">Available</Tag>
+                    :
+                    <Tag color="volcano">Out of Stock</Tag>
         },
         {
             title: 'Action',
@@ -58,7 +56,7 @@ const CarTable = () => {
                     </Link>
                     <Popconfirm
                         title="Delete the car"
-                        description={`Are you sure to delete ${record.brand}?`}
+                        description={`Are you sure to delete ${record.name}?`}
                         onConfirm={() => deleteItem(record.id)}
                         okText="Yes"
                         cancelText="No"
@@ -97,7 +95,7 @@ const CarTable = () => {
         <>
             <div>
                 <Link to="/create">
-                    <Button type="primary" icon={<AppstoreAddOutlined />} style={{ marginBottom: '16px' }}>
+                    <Button type="primary" icon={<AppstoreAddOutlined />} style={{ marginBottom: '16px' }} className='BackColor'>
                         Create New Car
                     </Button>
                 </Link>

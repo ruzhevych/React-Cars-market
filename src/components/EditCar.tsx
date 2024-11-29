@@ -19,7 +19,7 @@ type QueryParams = {
 }
 const { TextArea } = Input;
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_CARS_API_URL;
 
 const EditCar = () => {
 
@@ -30,12 +30,7 @@ const EditCar = () => {
     const { id } = useParams<QueryParams>();
 
     useEffect(() => {
-        fetch(apiUrl + 'cars/categories').then(res => res.json()).then(data => {
-            const items = data as CategoryModel[];
-            setCategories(items.map(x => { return { label: x.name, value: x.id } }));
-        });
-
-        fetch(apiUrl + "cars/" + id).then(res => res.json()).then(data => {
+        fetch(apiUrl + "Cars/" + id).then(res => res.json()).then(data => {
             // setProduct(data);
             form.setFieldsValue(data);
             console.log(data);
@@ -54,7 +49,7 @@ const EditCar = () => {
             }
         }).then(res => {
             if (res.status === 200) {
-                message.success("Product edited successfuly!");
+                message.success("Cars edited successfuly!");
                 navigate(-1);
             }
             else {
@@ -82,16 +77,7 @@ const EditCar = () => {
                 onFinish={onSubmit}
             >
                 <Form.Item<CarFormFields> name="id" hidden></Form.Item>
-                <Form.Item<CarFormFields> label="Brand" name="brand"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input!',
-                        },
-                    ]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item<CarFormFields> label="Model" name="model"
+                <Form.Item<CarFormFields> label="Name" name="name"
                     rules={[
                         {
                             required: true,
@@ -103,7 +89,7 @@ const EditCar = () => {
                 <Form.Item<CarFormFields> label="Price" name="price">
                     <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
-                <Form.Item<CarFormFields> label="Year" name="year">
+                <Form.Item<CarFormFields> label="Quantity" name="quantity">
                     <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item<CarFormFields> label="Category" name="categoryId">

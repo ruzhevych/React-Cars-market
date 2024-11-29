@@ -5,11 +5,14 @@ import { accountService } from '../services/accounts.service';
 import { tokenService } from '../services/token.service';
 import { LoginField } from '../models/accounts';
 import { useAccountContext } from '../contexts/accounts.context';
+import { setAccount } from '../redux/account/accountSlice';
+import { useDispatch } from 'react-redux';
 import api from '../services/api';
 
 const Login: React.FC = () => {
 
-    const { setAccount } = useAccountContext();
+    //const { setAccount } = useAccountContext();
+    const dispatch = useDispatch();
 
     const onFinish: FormProps<LoginField>['onFinish'] = (values) => {
         console.log('Success:', values);
@@ -20,7 +23,8 @@ const Login: React.FC = () => {
             if (res.status === 200) {
                 accountService.login(res.data.accessToken);
                 message.success("Success!");
-                setAccount(tokenService.getPayload());
+                const payload = tokenService.getPayload();
+                if (payload) dispatch(setAccount(payload));
             }
         }).catch(err => {
             message.error(err.response.data.detail);

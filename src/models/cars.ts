@@ -1,9 +1,8 @@
 export interface CarModel {
     id: number;
-    brand: string;
-    model: string;
+    name: string;
     price: number;
-    year: number;
+    quantity: number;
     imageUrl: string;
     categoryName?: string;
     description?: string;
@@ -11,10 +10,9 @@ export interface CarModel {
 
 export type CarFormFields = {
     id?: number;
-    brand?: string;
-    model?: string;
+    name?: string;
     price?: string;
-    year?: number;
+    quantity?: number;
     categoryId?: number;
     description?: string;
     imageUrl?: string;

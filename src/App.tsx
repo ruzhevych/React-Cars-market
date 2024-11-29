@@ -8,10 +8,24 @@ import EditCar from './components/EditCar'
 import Login from './components/Login'
 import Register from './components/Register'
 import { ProtectedRoute } from './security/ProtectedRoute'
+import { ConfigProvider, theme} from 'antd'
 
 function App() {
   return (
-    <Routes>
+    <ConfigProvider
+    theme={{
+      algorithm: theme.darkAlgorithm,
+      token: {
+        // Seed Token
+        colorPrimary: '#19af71',
+        borderRadius: 10,
+
+        // Alias Token
+        colorBgContainer: '#f6ffed',
+      },
+    }}
+  >
+<Routes>
       <Route path='/' element={<AppLayout />}>
         <Route index element={<p>Home Page!</p>} />
         <Route path='/cars' element={<CarTable />} />
@@ -27,6 +41,8 @@ function App() {
         <Route path='*' element={<p>Page Not Found!</p>} />
       </Route>
     </Routes>
+  </ConfigProvider>
+    
   )
 }
 

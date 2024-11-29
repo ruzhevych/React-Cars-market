@@ -22,7 +22,7 @@ const normFile = (e: any) => {
     return e?.file.originFileObj;
 };
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_CARS_API_URL;
 
 const CreateCar = () => {
 
@@ -70,16 +70,7 @@ const CreateCar = () => {
                 layout="horizontal"
                 onFinish={onSubmit}
             >
-                <Form.Item<CarFormFields> label="Brand" name="brand"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input!',
-                        },
-                    ]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item<CarFormFields> label="Model" name="model"
+                <Form.Item<CarFormFields> label="Name" name="name"
                     rules={[
                         {
                             required: true,
@@ -91,7 +82,7 @@ const CreateCar = () => {
                 <Form.Item<CarFormFields> label="Price" name="price">
                     <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
-                <Form.Item<CarFormFields> label="Year" name="year">
+                <Form.Item<CarFormFields> label="Quantity" name="quantity">
                     <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item<CarFormFields> label="Category" name="categoryId">
@@ -100,14 +91,14 @@ const CreateCar = () => {
                 <Form.Item<CarFormFields> label="Description" name="description">
                     <TextArea rows={4} />
                 </Form.Item>
-                <Form.Item<CarFormFields> label="Image" name="image" valuePropName="file" getValueFromEvent={normFile}>
-                    <Upload maxCount={1}>
+                {/* <Form.Item<CarFormFields> label="Image" name="image" valuePropName="file" getValueFromEvent={normFile}>
+                    <Upload maxCount={3}>
                         <Button icon={<UploadOutlined />}>Click to Upload</Button>
                     </Upload>
-                </Form.Item>
-                {/* <Form.Item<ProductFormFields> label="Image" name="imageUrl">
-                    <Input />
                 </Form.Item> */}
+                <Form.Item<CarFormFields> label="Image" name="imageUrl">
+                    <Input />
+                </Form.Item>
                 <Form.Item
                     wrapperCol={{
                         offset: 4,
@@ -118,7 +109,7 @@ const CreateCar = () => {
                         <Button type="default" htmlType="reset">
                             Cancel
                         </Button>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" className='BackColor'>
                             Create
                         </Button>
                     </Space>
